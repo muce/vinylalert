@@ -79,3 +79,8 @@ def resend_confirmation():
     flash('A new confirmation email has been sent to you by email.')
     return redirect(url_for('main.index'))
 
+@auth.route('/discogs_auth')
+@login_required
+def discogs_auth():
+    return render_template('user.html')
+

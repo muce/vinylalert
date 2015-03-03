@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Flasky{% endblock %}
+{% block title %}Vinyl Alert{% endblock %}
 
 {% block page_content %}
 <div class="page-header">
@@ -8,16 +8,33 @@
 </div>
 <div class="row">
 	<div class="large-12 columns">
-		<hr/>
-		<h3>Discogs User Info</h3>
+		<h3>Discogs Auth {{ua}}</h3>
 		<p>
-			<b>Consumer Key: </b>{{consumer_key or 'consumer key'}}<br/>
-			<b>Consumer Secret: </b>{{consumer_secret or 'consumer_secret'}}<br/>
-			<b>Request Token URL: </b>{{request_token_url or 'request_token_url'}}<br/>
-			<b>Authorize URL: </b>{{authorize_url or 'authorize_url'}}<br/>
-			<b>Access Token URL: </b>{{access_token_url or 'access_token_url'}}<br/>
+			<table>
+				<tr><td><b>Request Token URL: </b></td><td>{{drtu}}</td></tr>
+				<tr><td><b>Authorize URL: </b></td><td><a href="{{dau}}" target="_blank">{{dau}}</a></td></tr>
+				<tr><td><b>Access Token URL: </b></td><td>{{datu}}</td></tr>
+				<tr><td><b>Identity URL: </b></td><td>{{diu}}</td></tr>
+				<tr><td><br/></td></tr>
+				<tr><td><b>Consumer Key: </b></td><td>{{dck}}</td></tr>
+				<tr><td><b>Consumer Secret: </b></td><td>{{dcs}}</td></tr>
+				<tr><td><b>Request Token: </b></td><td>{{drt}}</td></tr>
+				<tr><td><b>Request Secret: </b></td><td>{{drs}}</td></tr>
+				<tr><td><b>Access Token: </b></td><td>{{dat}}</td></tr>
+				<tr><td><b>Access Secret: </b></td><td>{{das}}</td></tr>
+				<tr><td><b>Validation Code: </b></td><td>{{dvc}}</td></tr>
+				<tr><td><b>Test Item: </b></td><td><a href="{{dti}}" target="_blank">{{dti}}</a></td></tr>
+			</table>
 		</p>
 	</div>
+		<div class="large-12 columns">
+			<hr/>
+			<p>
+				{{auth|safe or 'auth'}}
+			</p>
+			<hr/>
+		</div>
+	
 </div>
 {% endblock %}
 
