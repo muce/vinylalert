@@ -82,5 +82,5 @@ def resend_confirmation():
 @auth.route('/discogs_auth')
 @login_required
 def discogs_auth():
-    return render_template('user.html')
+    return render_template('/auth/discogs_auth.html')
 

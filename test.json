@@ -1,0 +1,39 @@
+{
+	'pagination': {
+		'per_page': 50, 'pages': 11, 'page': 1, 
+		'urls': {
+			'last': 'https://api.discogs.com/users/NecroPhil/inventory?per_page=50&page=11', 
+			'next': 'https://api.discogs.com/users/NecroPhil/inventory?per_page=50&page=2'
+		}, 
+		'items': 533
+	}, 
+'listings': [
+	{
+		'status': 'For Sale', 
+		'ships_from': 'Germany', 
+		'price': {
+			'currency': 'EUR', 
+			'value': 2.0
+		}, 
+		'allow_offers': 'True', 
+		'uri': 'https://www.discogs.com/sell/item/12946672', 
+		'comments': '', 
+		'seller': {
+			'username': 'NecroPhil', 
+			'resource_url': 'https://api.discogs.com/users/NecroPhil', 
+			'id': 369558
+		}, 
+		'sleeve_condition': 'Very Good Plus (VG+)', 
+		'release': {
+			'id': 518472, 
+			'resource_url': 'https://api.discogs.com/releases/518472', 
+			'description': 'Marc Almond - Only The Moment (7", Single)', 
+			'catalog_number': '006 20 3289 7', 'year': 1989
+		}, 
+		'resource_url': 'https://api.discogs.com/marketplace/listings/12946672', 
+		'audio': 'False', 
+		'id': 12946672, 
+		'condition': 'Very Good Plus (VG+)', 
+		'posted': '2009-08-09T09:37:34'
+	}
+}

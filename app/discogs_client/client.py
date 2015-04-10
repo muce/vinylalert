@@ -14,7 +14,7 @@ class Client(object):
     _request_token_url = 'https://api.discogs.com/oauth/request_token'
     _authorize_url = 'http://www.discogs.com/oauth/authorize'
     _access_token_url = 'https://api.discogs.com/oauth/access_token'
-
+        
     def __init__(self, user_agent, consumer_key=None, consumer_secret=None, token=None, secret=None):
         """An interface to the Discogs API."""
         self.user_agent = user_agent
@@ -36,6 +36,7 @@ class Client(object):
             raise ConfigurationError('You must first set the consumer key and secret.')
 
     def get_authorize_url(self, callback_url=None):
+        
         """
         Returns a tuple of (<access_token>, <access_secret>, <authorize_url>).
         Send a Discogs user to the authorize URL to get the verifier for the access token.
@@ -47,6 +48,7 @@ class Client(object):
         params['User-Agent'] = self.user_agent
         if callback_url:
             params['oauth_callback'] = callback_url
+            params['callback'] = callback_url
         postdata = urllib.urlencode(params)
 
         content, status_code = self._fetcher.fetch(self, 'POST', self._request_token_url, data=postdata, headers=params)
@@ -60,7 +62,8 @@ class Client(object):
 
         return (token, secret, '?'.join((self._authorize_url, query_string)))
 
-    def get_access_token(self, verifier):
+    def get_access_token(self, verifier=None):
+        
         """
         Uses the verifier to exchange a request token for an access token.
         """

@@ -4,14 +4,14 @@
 
 {% block page_content %}
 <div class="page-header">
-    <h1>Hello {% if current_user.is_authenticated() %}{{ current_user.username }}{% else %}Stranger{% endif %}</h1>
+    <h1>Authorised, {% if current_user.is_authenticated() %}{{ current_user.username }}{% else %}Stranger{% endif %}</h1>
 </div>
 <div class="row">
 	<div class="large-12 columns">
 		<h3>{{user_agent}}</h3>
 		<p>
 			<table>
-				<tr><td><b>Access Token URL: </b></td><td><a href="{{access_token_url}}" target="_blank">{{access_token_url}}</a></td></tr>
+				<tr><td><b>Access Token URL: </b></td><td>{{access_token_url}}</td></tr>
 				<tr><td><br/></td></tr>
 				<tr><td><b>Consumer Key: </b></td><td>{{consumer_key}}</td></tr>
 				<tr><td><b>Consumer Secret: </b></td><td>{{consumer_secret}}</td></tr>
@@ -19,14 +19,19 @@
 				<tr><td><b>Request Secret: </b></td><td>{{request_secret}}</td></tr>
 				<tr><td><b>Access Token: </b></td><td>{{access_token}}</td></tr>
 				<tr><td><b>Access Secret: </b></td><td>{{access_secret}}</td></tr>
-				<tr><td><b>Validation Code: </b></td><td>{{validation_code}}</td></tr>
+				<tr><td><b>Validation Code: </b></td><td>{{oauth_verifier}}</td></tr>
+				<tr><td><b>Identity: </b></td><td>{{identity}}</td></tr>
+				<tr><td><b>Wantlist: </b></td><td>{{wantlist}}</td></tr>
+				<!--
+					<tr><td><b>Test Item: </b></td><td><a href="{{test_item_url}}" target="_blank">{{test_item_url}}</a></td></tr>
+				-->
 			</table>
 		</p>
 	</div>
 		<div class="large-12 columns">
 			<hr/>
 			<p>
-				
+				Info
 			</p>
 			<hr/>
 		</div>
