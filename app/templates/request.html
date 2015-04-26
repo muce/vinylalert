@@ -5,7 +5,8 @@
 {% block page_content %}
 <div class="row">
 	<div class="large-12 columns">
-		<h1>{{user_agent}} - {% if current_user.is_authenticated() %}{{ current_user.username }}{% else %}Stranger{% endif %} - Index</h1>
+		<h3>{{user_agent}} - Access</h3>
+		<h4>{% if current_user.is_authenticated() %}{{ current_user.username }}{% else %}Stranger{% endif %}</h4>
 		<hr/>
 	</div>
 </div>
@@ -17,8 +18,10 @@
 				<tr><td><b>Consumer&nbsp;Key:&nbsp;</b></td><td>{{consumer_key}}</td></tr>
 				<tr><td><b>Consumer&nbsp;Secret:&nbsp;</b></td><td>{{consumer_secret}}</td></tr>
 				<tr><td><b>Callback&nbsp;URL:&nbsp;</b></td><td>{{callback_url}}</td></tr>
-				<tr><td><a href="/request">Get Request Token</a></td></tr>
-				<tr><td>&nbsp;</td></tr>
+				<tr><td><b>Request&nbsp;Token:&nbsp;</b></td><td>{{request_token}}</td></tr>
+				<tr><td><b>Request&nbsp;Secret:&nbsp;</b></td><td>{{request_secret}}</td></tr>
+				<tr><td><b>Access&nbsp;Token&nbsp;URL:&nbsp;</b></td><td><a href="{{access_token_url}}" target="_blank">{{access_token_url}}</a></td></tr>
+				<tr><td><a href="/access">Get Access Token</a></td></tr>
 			</table>
 		</p>
 	</div>

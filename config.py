@@ -6,35 +6,22 @@ class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or '234DFGDFdfgdf234234dfgdFGJRETGFHFG456gfhFGH'
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     
-    USER_AGENT = 'VinylAlert/0.1'
+    DISCOGS_BASE_URL = 'http://www.discogs.com'
+    DISCOGS_USER_AGENT = 'VinylAlert/0.1'
+    DISCOGS_USERNAME = 'imuce9@gmail.com'
+    DISCOGS_PASSWORD = 'N0rthW1ckP4rk)'
+    DISCOGS_CONSUMER_KEY = 'RFTnVYOtuadvJqIpwdrh'
+    DISCOGS_CONSUMER_SECRET = 'QIpGQsrKfynHndnXYYjMuIqnUBfGAREi'
+    DISCOGS_CALLBACK_URL = 'http://localhost:5000/authorise'
     
     MAIL_SERVER = 'smtp.googlemail.com'
     MAIL_PORT = 587
     MAIL_USE_TLS = True
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME') or 'imuce9@gmail.com'
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD') or 'N0rthW1ckP4rk)'
-    MAIL_SUBJECT_PREFIX = '['+USER_AGENT+']'
+    MAIL_SUBJECT_PREFIX = '['+DISCOGS_USER_AGENT+']'
     MAIL_SENDER = 'VinylAlert Admin <admin@classicalvinyl.com>'
     MAIL_ADMIN = os.environ.get('VINYLALERT_ADMIN') or 'imuce9@gmail.com'
-    
-    DISCOGS_USERNAME = 'imuce9@gmail.com'
-    DISCOGS_PASSWORD = 'N0rthW1ckP4rk)'
-    DISCOGS_BASE_URL = 'http://api.discogs.com/'
-    DISCOGS_CALLBACK_URL = 'http://localhost:5000/authorize'
-    DISCOGS_REQUEST_TOKEN_URL = 'http://api.discogs.com/oauth/request_token'
-    DISCOGS_AUTHORIZE_URL = 'http://www.discogs.com/oauth/authorize'
-    DISCOGS_ACCESS_TOKEN_URL = 'http://api.discogs.com/oauth/access_token'
-    DISCOGS_IDENTITY_URL = 'http://api.discogs.com/oauth/identity'
-    
-    DISCOGS_CONSUMER_KEY = 'RFTnVYOtuadvJqIpwdrh'
-    DISCOGS_CONSUMER_SECRET = 'QIpGQsrKfynHndnXYYjMuIqnUBfGAREi'
-    DISCOGS_REQUEST_TOKEN = ''
-    DISCOGS_REQUEST_SECRET = ''
-    DISCOGS_ACCESS_TOKEN = ''
-    DISCOGS_ACCESS_SECRET = ''
-    DISCOGS_VALIDATION_CODE = ''
-    DISCOGS_TEST_ITEM = 'http://www.discogs.com/Invaders-Spacing-Out/release/929418'
-    DISCOGS_SALE_URL = 'http://www.discogs.com/sell/release/' + '802587?' + 'ev=rb'
 
     @staticmethod
     def init_app(app):

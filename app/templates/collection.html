@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Vinyl Alert{% endblock %}
+
+{% block page_content %}
+<div class="row">
+	<div class="large-12 columns">
+		<h1>Hello {% if current_user.is_authenticated() %}{{ current_user.username }}{% else %}Stranger{% endif %}</h1>
+		<hr/>
+	</div>
+</div>
+
+<div class="row">
+	<div class="large-12 columns">
+		<h3>Collection - {{username}}</h3>
+		<p>
+			something about the collection
+		</p>
+		<hr/>
+</div>
+{% endblock %}
+
+

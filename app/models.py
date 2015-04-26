@@ -5,6 +5,14 @@ from flask.ext.login import UserMixin, AnonymousUserMixin
 from . import db, login_manager
 from datetime import datetime
 
+# useful URLs
+# http://www.discogs.com/stats/contributors?start=0
+# http://www.discogs.com/sell/release/<id>
+class Fela():
+    wantlist = 'wantlist'
+    userlist = 'userlist'
+    collection = 'collection'
+    name = 'name'
 
 class Role(db.Model):
     __tablename__ = 'roles'

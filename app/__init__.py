@@ -28,18 +28,7 @@ def create_app(config_name):
     moment.init_app(app)
     db.init_app(app)
     login_manager.init_app(app)
-    discogs = oauth.remote_app(
-        'discogs',
-        base_url = app.config["DISCOGS_BASE_URL"],
-        request_token_url = app.config["DISCOGS_REQUEST_TOKEN_URL"], 
-        access_token_url = app.config["DISCOGS_ACCESS_TOKEN_URL"],
-        authorize_url = app.config["DISCOGS_AUTHORIZE_URL"],
-        consumer_key = 'RFTnVYOtuadvJqIpwdrh',
-        consumer_secret = 'QIpGQsrKfynHndnXYYjMuIqnUBfGAREi'
-    )
     
-    print 'discogs object: '+str(discogs)
-
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
 

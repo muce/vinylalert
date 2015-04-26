@@ -527,6 +527,39 @@ class Label(PrimaryAPIObject):
     def __repr__(self):
         return '<Label %r %r>' % (self.id, self.name)
 
+class Abuser(PrimaryAPIObject):
+    id = SimpleField()
+    username = SimpleField()
+    releases_contributed = SimpleField()
+    num_collection = SimpleField()
+    num_wantlist = SimpleField()
+    num_lists = SimpleField()
+    rank = SimpleField()
+    rating_avg = SimpleField()
+    url = SimpleField('uri')
+    name = SimpleField(writable=True)
+    profile = SimpleField(writable=True)
+    location = SimpleField(writable=True)
+    home_page = SimpleField(writable=True)
+    registered = SimpleField(transform=parse_timestamp)
+    inventory = ObjectCollection('Listing', key='listings', url_key='inventory_url')
+    wantlist = ObjectCollection('WantlistItem', key='wants', url_key='wantlist_url', list_class=Wantlist)
+
+    def __init__(self, client, dict_):
+        super(User, self).__init__(client, dict_)
+        self.data['resource_url'] = client._base_url + '/users/%s' % dict_['id']
+
+    @property
+    def orders(self):
+        return PaginatedList(self.client, self.client._base_url + '/marketplace/orders', 'orders', Order)
+
+    @property
+    def collection_folders(self):
+        resp = self.client._get(self.fetch('collection_folders_url'))
+        return [CollectionFolder(self.client, d) for d in resp['folders']]
+
+    def __repr__(self):
+        return '<User %r %r>' % (self.id, self.username)
 
 class User(PrimaryAPIObject):
     id = SimpleField()
