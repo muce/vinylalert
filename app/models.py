@@ -7,7 +7,7 @@ from datetime import datetime
 
 # useful URLs
 # http://www.discogs.com/stats/contributors?start=0
-# http://www.discogs.com/sell/release/<id>
+# http://www.discogs.com/sell/release/509020
 class Fela():
     wantlist = 'wantlist'
     userlist = 'userlist'
