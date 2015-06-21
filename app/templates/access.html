@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Vinyl Alert{% endblock %}
+{% block title %}Vinyl Alert {{ current_user.username }}{% endblock %}
 
 {% block page_content %}
 <div class="row">
@@ -13,126 +13,48 @@
 
 <div class="row">
 	<div class="large-12 columns">
-		<h3>Want List ({{fela_wantlist}})</h3>
-		<b>IDs: </b>{{fela_wantlist_ids}}<br/>
-		<b>Users In Want List: </b>({{fela_user_len}}), {{fela_userlist}}<br/>
+		<h3>{{user.username}}&nbsp;(ID:&nbsp;{{user.id}})</h3>
 		<hr/>
 	</div>
 </div>
 
 <div class="row">
 	<div class="large-12 columns">
-		<h3>Sale List - ...</h3>
-		<b>WIP</b>
-		<hr/>
+		<h3>Want List - (Length:&nbsp;{{wantlist_len}})</h3>
+		<ul>
+            {%- for item in wantlist %}
+            <li>Release: {{item['rel']}}</li>
+			<li>
+                <b>Release ID:</b>&nbsp;<a href="http://www.discogs.com/release/{{item['id']}}" target="_blank">{{item['id']}}</a>,&nbsp;
+                <b>Title:</b>&nbsp;{{item['title']}},&nbsp;
+                <b>Artists:</b>&nbsp;
+				{%- for artist in item['artists'] %}
+                <a href="http://www.discogs.com/artist/{{artist['id']}}" target="_blank">{{artist['name']}}</a>,&nbsp;
+				{% endfor %},&nbsp;
+				<b>Year:</b>&nbsp;{{item['year']}},&nbsp;
+				<b>Country:</b>&nbsp;{{item['country']}},&nbsp;
+                <br/>
+                &nbsp;&nbsp;<b>Format:</b>&nbsp;[
+                {%- for f in item['format'] %}
+                {%- if f['name'] %}
+                Name:&nbsp;{{f['name']}},&nbsp;
+                {% endif %}
+                {%- if f['descriptions'] %}
+                Descriptions:&nbsp;{{f['descriptions']}},&nbsp;
+                {% endif %}
+                {%- if f['text'] %}
+                Text:&nbsp;{{f['text']}},&nbsp;
+                {% endif %}
+                Qty:&nbsp;{{f['qty']}}
+                {% endfor %}
+			</li>
+            <br/>
+            {% endfor %}
+		</ul>
+        <hr/>
 	</div>
 </div>
 
-<div class="row">
-	<div class="large-12 columns">
-		<h3>Wantlist - {{user.username}}&nbsp;(ID:&nbsp;{{user.id}},&nbsp;Length:&nbsp;{{wantlist_len}})</h3>
-		<!--
-		{%- for item in wantlist_obj_list recursive %}
-		<p>
-			<ul>
-				<li>ID: {{item.id}}</li>
-				<li>Title: {{item.title}}</li>
-				<li>Year: {{item.year}}</li>
-				<li>Status: {{item.status}}</li>
-				<li>Country: {{item.country}}</li>
-				<li>Quality: {{item.data_quality}}</li> 
-				<li>Artists: {{item.artists}}</li>
-				<li>Genres: {%- for genre in item.genres %} {{genre}}, {% endfor %}</li>
-				<li>Labels: {%- for label in item.labels %} {{label}}, {% endfor %}</li>
-				<li>Companies: {{item.companies}}</li>
-				<li>Formats: {{item.formats}}</li>
-				<li>Notes: </li>
-				<li>Credits: </li>
-				<li>Tracklist: </li>
-			</ul>
-		</p>
-		{% endfor %}
-		<p>
-			<table border="1">
-				<thead>
-					<tr>
-						<th>Release ID</th>
-						<th width="200">Title</th>
-						<th width="200">Artists</th>
-						<th>Year</th>
-						<th>Labels</th>
-						<th>Country</th>
-						<th>Formats</th>
-					</tr>
-				</thead>
-				<tbody>
-					{%- for item in wantlist_items recursive %}
-					<tr>
-						<td>{{item.release.id}}</td>
-						<td>{{item.release.title}}</td>
-						<td>
-							<ul>
-							{%- for artist in item.release.artists recursive %}
-								<li>{{artist.id}}, {{artist.name}}</li>
-							{% endfor %}
-							</ul>
-						</td>
-						<td>{{item.release.year}}</td>
-						<td>
-							<ul>
-						{%- for label in item.release.labels recursive %}
-								<li>{{label.id}}, {{label.name}}</li>
-						{% endfor %}
-							</ul>
-						</td>
-						<td>{{item.release.country}}</td>
-						<td>
-							<ul>
-							{%- for format in item.release.formats recursive %}
-								{%- if format['descriptions'] %}
-								<li>Descriptions: {{format['descriptions']}}</li>
-								{% endif %}
-								{%- if format['text'] %}
-								<li>Text: {{format['text']}}</li>
-								{% endif %}
-								{%- if format['name'] %}
-								<li>Name: {{format['name']}}</li>
-								{% endif %}
-								{%- if format['qty'] %}
-								<li>Qty: {{format['qty']}}</li>
-								{% endif %}
-							{% endfor %}
-							</ul>
-						</td>
-					</tr>
-					{% endfor %}
-				</tbody>
-			</table>
-		</p>
-		-->
-		<p>
-	  		<ul>
-	  			{%- for item in wantlist_items recursive %}
-	    		<li>
-	      			<h3><b>Id: </b>{{item.release.id}}, <b>Title: </b>{{item.release.title}}</h3>
-	      			<b>Year: </b>{{item.release.year}}<br/>
-	      			<b>Data Quality: </b>{{item.release.data_quality}}<br/>
-	      			<b>Status: </b>{{item.release.status}}<br/>
-	      			<b>Genres: </b>{{item.release.genres}}<br/>
-	      			<b>Country: </b>{{item.release.country}}<br/>
-	      			<b>Notes: </b>{{item.release.notes}}<br/>
-	      			<b>Formats: </b>{{item.release.formats}}<br/>
-	      			<b>Artists: </b>{{item.release.artists}}<br/>
-	      			<b>Credits: </b>{{item.release.credits}}<br/>
-	      			<b>Labels: </b>{{item.release.labels}}<br/>
-	      			<b>Companies: </b>{{item.release.companies}}<br/>
-	      		</li>
-	      		{% endfor %}
-	  		</ul>
-	  	</p>
-	  	
-	</div>
-</div>
 {% endblock %}
 
 
