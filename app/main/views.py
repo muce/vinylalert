@@ -3,11 +3,17 @@ from flask import request, render_template, flash, url_for, session, redirect
 from flask.ext.login import login_required, current_user
 from forms import EditProfileForm
 from . import main
+from models import MatchMaker
 from ..models import *
+from config import *
 from discogs_client import *
 from splinter import Browser
 
 matchmaker = MatchMaker()
+d = 'd'
+resp = 'resp'
+me = 'me'
+u = 'u'
 
 
 @main.route('/')
@@ -59,7 +65,7 @@ def discogs_request():
 
     d.set_token(session['request_token'], session['request_secret'])
 
-    return render_template('request.html', \
+    return render_template('request.html',
                            user_agent=session['discogs_user_agent'],
                            consumer_key=session['discogs_consumer_key'],
                            consumer_secret=session['discogs_consumer_secret'],
@@ -69,8 +75,9 @@ def discogs_request():
                            access_token_url=session['access_token_url'])
 
 @main.route('/authorised')
-def web_auth():
+def discogs_auth():
     app = current_app._get_current_object()
+    session['oauth_token'] = request.args['oauth_token']
     session['oauth_verifier'] = request.args['oauth_verifier']
     d = Client(session['discogs_user_agent'])
     d.set_consumer_key(session['discogs_consumer_key'], session['discogs_consumer_secret'])
@@ -81,22 +88,54 @@ def web_auth():
 
     me = d.identity()
     u = d.user(me.username)
+    wantlist_items = matchmaker.get_wantlist_items(me)
+    print 'AUTHORISED_URL'
+    print 'OAUTH_TOKEN: '+session['oauth_token']
+    print 'OAUTH_VERIFIER: '+session['oauth_verifier']
+    print 'CONSUMER_KEY: '+session['discogs_consumer_key']
+    print 'CONSUMER_SECRET: '+session['discogs_consumer_secret']
+    print 'ACCESS_TOKEN: '+session['access_token']
+    print 'ACCESS_SECRET: '+session['access_secret']
 
+    return render_template('main_menu.html',
+                           user_agent=session['discogs_user_agent'],
+                           user = u,
+                           collectionlist_url = '/',
+                           wantlist_url = app.config['DISCOGS_WANTLIST_URL']+'?oauth_token='+session['oauth_token']+'&oauth_verifier='+session['oauth_verifier'],
+                           wantlist_items = wantlist_items,
+                           wantlist_items_len = str(len(wantlist_items)))
 
-@main.route('/authorise')
-def discogs_authorise():
+@main.route('/wantlist')
+def discogs_wantlist():
     app = current_app._get_current_object()
-    session['oauth_verifier'] = request.args['oauth_verifier']
-    d = Client(session['discogs_user_agent'])
-    d.set_consumer_key(session['discogs_consumer_key'], session['discogs_consumer_secret'])
-    d.set_token(session['request_token'], session['request_secret'])
-    resp = d.get_access_token(request.args['oauth_verifier'])
-    session['access_token'] = resp[0]
-    session['access_secret'] = resp[1]
-    print '[6] response: ' + str(resp)
+    #session['oauth_verifier'] = request.args['oauth_verifier']
+    #d = Client(session['discogs_user_agent'])
+    #d.set_consumer_key(session['discogs_consumer_key'], session['discogs_consumer_secret'])
+    #d.set_token(session['request_token'], session['request_secret'])
+    #resp = d.get_access_token(request.args['oauth_verifier'])
+    #session['access_token'] = resp[0]
+    #session['access_secret'] = resp[1]
 
-    return render_template('main_menu',
-                           user = u)
+    #me = d.identity()
+    #u = d.user(me.username)
+    wantlist_items = 'wantlist_items' #matchmaker.get_wantlist_items(me)
+    print 'WANTLIST_URL'
+    print 'OAUTH_TOKEN: '+session['oauth_token']
+    print 'OAUTH_VERIFIER: '+session['oauth_verifier']
+    print 'CONSUMER_KEY: '+session['discogs_consumer_key']
+    print 'CONSUMER_SECRET: '+session['discogs_consumer_secret']
+    print 'ACCESS_TOKEN: '+session['access_token']
+    print 'ACCESS_SECRET: '+session['access_secret']
+
+    return render_template('wantlist.html',
+                           user_agent=session['discogs_user_agent'],
+                           user = u,
+                           wantlist_items = wantlist_items,
+                           wantlist_items_len = 'len')
+
+@main.route('/collection')
+def discogs_collection():
+    return render_template('index.html')
 
 """
     me = d.identity()

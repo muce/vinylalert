@@ -3,6 +3,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 
 class Config:
+
     SECRET_KEY = os.environ.get('SECRET_KEY') or '234DFGDFdfgdf234234dfgdFGJRETGFHFG456gfhFGH'
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
 
@@ -15,9 +16,10 @@ class Config:
     DISCOGS_CONSUMER_KEY = 'RFTnVYOtuadvJqIpwdrh'
     DISCOGS_CONSUMER_SECRET = 'QIpGQsrKfynHndnXYYjMuIqnUBfGAREi'
     DISCOGS_PERSONAL_ACCESS_TOKEN = 'AHwgXtOEtzuSQjOyygnSqxVmwwtsrnCDBfMdddjp'
-    DISCOGS_CALLBACK_URL = 'http://localhost:5000/authorised'
     # Discogs URLs
-    DISCOGS_BASE_URL = 'http://www.discogs.com'
+    DISCOGS_BASE_URL = 'https://api.discogs.com/'
+    DISCOGS_CALLBACK_URL = 'http://localhost:5000/authorised'
+    DISCOGS_WANTLIST_URL = 'http://localhost:5000/wantlist'
     # Releases
     DISCOGS_RELEASE = '/releases/(release_id)'
     DISCOGS_MASTER_RELEASE = '/masters/(master_id)'
@@ -67,18 +69,21 @@ class Config:
 
 
 class DevelopmentConfig(Config):
+
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or \
         'sqlite:///' + os.path.join(basedir, 'data-dev.sqlite')
 
-
 class TestingConfig(Config):
+
+
     TESTING = True
     SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL') or \
         'sqlite:///' + os.path.join(basedir, 'data-test.sqlite')
 
 
 class ProductionConfig(Config):
+
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
         'sqlite:///' + os.path.join(basedir, 'data.sqlite')
 

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Vinyl Alert {{ current_user.username }}{% endblock %}
+
+{% block page_content %}
+<div class="row">
+	<div class="large-12 columns">
+		<h3>{{user_agent}} - Main Menu</h3>
+		<h3>{{user.username}}&nbsp;(ID:&nbsp;{{user.id}})</h3>
+		<hr/>
+	</div>
+</div>
+
+<div class="row">
+	<div class="large-12 columns">
+		<ul>
+            <li><a href="{{wantlist_url}}">Want List</a></li>
+			<li><a href="{{collectionlist_url}}">Collection List</a></li>
+            <li><a href="/">Sale List</a></li>
+            <li><a href="/">Match List</a></li>
+        </ul>
+        <hr/>
+		<b>Wantlist Items Length: {{wantlist_items_len}}</b>
+	</div>
+</div>
+
+{% endblock %}
+
+
